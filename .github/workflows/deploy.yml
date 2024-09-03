@@ -1,4 +1,4 @@
-name: Build and deploy WEB to PRODUCTION
+name: Deploy Audiowalk Infrastructure
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
 
 jobs:
   build:
-    name: Build and Push Docker Image
-    uses: ./.github/workflows/publish.yml
+    name: Publish Identity Management
+    uses: ./.github/workflows/publish-identity-management.yml
 
   deploy:
     name: Deploy

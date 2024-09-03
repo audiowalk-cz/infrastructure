@@ -1,12 +1,13 @@
-name: Build and deploy WEB to PRODUCTION
+name: Publish Identity Management
 
 on:
   workflow_call:
 
 jobs:
   build:
-    name: Build and Push Docker Image
+    name: Publish
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout the updated source code
         uses: actions/checkout@v3
@@ -25,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: .
-          tags: "ghcr.io/pomezi/identity-management:latest"
+          context: ./identity-management
+          tags: "ghcr.io/audiowalk-cz/identity-management:latest"
           cache-from: type=gha
           cache-to: type=gha,mode=max
