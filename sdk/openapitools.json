@@ -1,0 +1,21 @@
+{
+    "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+    "spaces": 2,
+    "generator-cli": {
+        "version": "6.6.0",
+        "generators": {
+            "cdn": {
+                "generatorName": "typescript-axios",
+                "output": "./src/sdk-dist/cdn",
+                "inputSpec": "../cdn/openapi.json",
+                "templateDir": "./templates"
+            },
+            "identity-management": {
+                "generatorName": "typescript-axios",
+                "output": "./src/sdk-dist/identity-management",
+                "inputSpec": "./identity-management/openapi.json",
+                "templateDir": "./templates"
+            }
+        }
+    }
+}
