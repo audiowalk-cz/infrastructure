@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/data/{project}": {
+      "get": {
+        "operationId": "listFiles",
+        "parameters": [
+          {
+            "name": "project",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectFileDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/data/{project}/{file}": {
+      "get": {
+        "operationId": "getFile",
+        "parameters": [
+          {
+            "name": "project",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "404": {
+            "description": "File not found"
+          }
+        },
+        "tags": [
+          "Data"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "@audiowalk/cdn",
+    "description": "",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "ProjectFileDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sizeBytes": {
+            "type": "number"
+          },
+          "lastModified": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "sizeBytes",
+          "lastModified"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/login/pomezi": {
+      "post": {
+        "operationId": "loginPomezi",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginPomeziDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Login"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "@audiowalk/iam",
+    "description": "",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "LoginPomeziDto": {
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "product": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "mail",
+          "hash",
+          "product"
+        ]
+      }
+    }
+  }
+}

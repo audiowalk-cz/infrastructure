@@ -1,3 +1,6 @@
+import { readFileSync } from "fs";
+import * as path from "path";
+
 const auth = {
   secret: "",
 };
@@ -11,8 +14,17 @@ const data = {
   rootDir: "./data",
 };
 
+const packageJson = readFileSync(path.join(__dirname, "..", "package.json"), "utf-8");
+
+const project = {
+  name: JSON.parse(packageJson).name,
+  version: JSON.parse(packageJson).version,
+  description: JSON.parse(packageJson).description,
+};
+
 export const Config = {
   auth,
   data,
+  project,
   server,
 };

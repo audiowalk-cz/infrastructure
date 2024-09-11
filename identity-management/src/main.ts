@@ -1,21 +1,25 @@
 import { Logger, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
 import { Config } from "./config";
-import { registerOpenApi } from "./openapi";
+import { generateOpenAPI } from "./openapi";
 
 async function bootstrap() {
   const logger = new Logger("MAIN");
 
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-    whitelist: true,
-    forbidNonWhitelisted: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
-  registerOpenApi(app);
+  const document = await generateOpenAPI(app);
+  SwaggerModule.setup("/", app, document);
 
   await app.listen(Config.server.port, Config.server.host);
 

@@ -1,9 +1,9 @@
 {
-  "name": "iam",
+  "name": "@audiowalk/iam",
+  "private": true,
   "version": "0.0.1",
   "description": "",
   "author": "",
-  "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "start": "node dist/main",

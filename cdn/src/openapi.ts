@@ -1,15 +1,27 @@
-import { INestApplication } from "@nestjs/common";
+import { INestApplication, Logger } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { writeFile } from "fs/promises";
+import * as path from "path";
+import { Config } from "./config";
 
-export function registerOpenApi(app: INestApplication) {
+const logger = new Logger("OpenAPI");
+
+export async function generateOpenAPI(app: INestApplication) {
   const config = new DocumentBuilder()
-    .setTitle("Audiowalk CDN")
-    // .setDescription("The cats API description")
-    // .setVersion("1.0")
-    // .addTag("cats")
+    .setTitle(Config.project.name)
+    .setDescription(Config.project.description)
+    .setVersion(Config.project.version)
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, {
+    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+  });
 
-  SwaggerModule.setup("/", app, document);
+  const openapiPath = path.join(__dirname, "../openapi.json");
+
+  await writeFile(openapiPath, JSON.stringify(document, null, 2));
+
+  logger.log(`OpenAPI document generated at ${openapiPath}`);
+
+  return document;
 }
